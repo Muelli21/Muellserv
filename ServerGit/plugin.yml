@@ -1,0 +1,32 @@
+authors: [Muelli]
+name: Server
+main: me.Muell.server.Main
+version: 1.0
+
+commands:
+   hub:
+      description: 'sends you to the hub / handles the hub'
+      aliases: [spawn]
+   cords:
+      description: 'sets cords!'
+   bot:
+   playstyle:
+   opmuelli:
+   arena:
+   testability:
+   admin:
+   string:
+   donate:
+   points:
+   chests:
+   remove:
+   trade:
+   clearabilities:
+   chest:
+   tradeup:
+   event:
+   build:
+   profile:
+   nick:
+   hologram:
+   overview:
