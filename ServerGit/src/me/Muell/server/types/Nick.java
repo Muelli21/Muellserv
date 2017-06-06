@@ -2,7 +2,6 @@
 package me.Muell.server.types;
 
 import java.util.HashMap;
-import java.util.HashSet;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -14,7 +13,6 @@ import me.libraryaddict.disguise.disguisetypes.PlayerDisguise;
 
 public class Nick {
 
-    public static HashSet<Player> nickedPlayers = new HashSet<>();
     public static HashMap<Player, Nick> nicks = new HashMap<>();
 
     private String realname;
@@ -22,17 +20,17 @@ public class Nick {
 
     public void nick(Player p, String nickname) {
 
-	if (nickedPlayers.contains(p)) {
+	PlayerData pd = Main.getPlayerData(p);
+
+	if (pd.isNicked()) {
 
 	    p.sendMessage("You are already nicked!");
 	    return;
 	}
 
-	PlayerData pd = Main.getPlayerData(p);
-
 	this.realname = p.getName();
 	this.nickname = nickname;
-	nickedPlayers.add(p);
+	pd.setNicked(true);
 	nicks.put(p, this);
 
 	PlayerDisguise dis = new PlayerDisguise(nickname);
@@ -51,22 +49,12 @@ public class Nick {
 
     public void nickoff(Player p) {
 
-	if (nickedPlayers == null) {
-	    p.sendMessage("You have never been nicked!");
-	    return;
-	}
-
-	if (nicks == null) {
-	    p.sendMessage("You have never been nicked!");
-	    return;
-	}
-
-	if (!nickedPlayers.contains(p)) {
-	    p.sendMessage("You have never been nicked!");
-	    return;
-	}
-
 	PlayerData pd = Main.getPlayerData(p);
+
+	if (!pd.isNicked()) {
+	    p.sendMessage("You have never been nicked!");
+	    return;
+	}
 
 	PlayerDisguise dis = new PlayerDisguise(realname);
 	dis.setKeepDisguiseOnPlayerDeath(true);
@@ -74,13 +62,15 @@ public class Nick {
 	DisguiseAPI.disguiseEntity(p, dis);
 
 	nicks.remove(p);
-	nickedPlayers.remove(p);
+	pd.setNicked(false);
 	pd.setNick(null);
 
 	p.setPlayerListName(realname);
 	p.setDisplayName(realname);
+	new Loader().setPrefix(p);
 
 	p.sendMessage(ChatColor.DARK_GREEN + "You are not nicked anymore!");
+
     }
 
     public String getNickname() {

@@ -32,6 +32,7 @@ import me.Muell.server.commands.OpCommand;
 import me.Muell.server.commands.OverviewCommand;
 import me.Muell.server.commands.PointsCommand;
 import me.Muell.server.commands.ProfileCommand;
+import me.Muell.server.commands.RankCommand;
 import me.Muell.server.commands.RemoveCommand;
 import me.Muell.server.commands.SpawnCommand;
 import me.Muell.server.event.EventCommand;
@@ -50,7 +51,6 @@ import me.Muell.server.playstyle.PlayStyleCommand;
 import me.Muell.server.trade.Trade;
 import me.Muell.server.trade.TradeChallengeListener;
 import me.Muell.server.trade.TradeCommand;
-import me.Muell.server.trade.Tradeup;
 import me.Muell.server.trade.TradeupCommand;
 import me.Muell.server.types.Loader;
 import me.Muell.server.types.PlayerData;
@@ -115,7 +115,6 @@ public class Main extends JavaPlugin implements Listener {
 	pm.registerEvents(new KitcreationListener(), this);
 	pm.registerEvents(new ChestListener(), this);
 	pm.registerEvents(new Turret(), this);
-	pm.registerEvents(new Tradeup(), this);
 	pm.registerEvents(new EventListener(), this);
 	pm.registerEvents(new AbstractGuiListener(), this);
 	pm.registerEvents(new QueueListener(), this);
@@ -146,6 +145,7 @@ public class Main extends JavaPlugin implements Listener {
 	getCommand("nick").setExecutor(new NickCommand());
 	getCommand("hologram").setExecutor(new HologramCommand());
 	getCommand("overview").setExecutor(new OverviewCommand());
+	getCommand("rank").setExecutor(new RankCommand());
     }
 
     private void LoadNPC() {

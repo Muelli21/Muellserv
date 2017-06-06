@@ -18,7 +18,7 @@ public class CordsCommand implements CommandExecutor {
 
 	if (!(sender instanceof Player)) { return true; }
 
-	if (!p.hasPermission("administration")) {
+	if (!p.hasPermission("Admin") || !p.hasPermission("Head-Builder")) {
 
 	    p.sendMessage(Main.pre + Main.noperms);
 	    return true;
@@ -35,7 +35,6 @@ public class CordsCommand implements CommandExecutor {
 		Main.getPlugin().getConfig().set("cords.1vs1.z", loc.getZ());
 		Main.getPlugin().getConfig().set("cords.1vs1.yaw", loc.getYaw());
 		Main.getPlugin().getConfig().set("cords.1vs1.pitch", loc.getPitch());
-
 		Main.getPlugin().saveConfig();
 
 		p.sendMessage(Main.pre + ChatColor.GREEN + "setting 1vs1 cords!");
@@ -52,7 +51,6 @@ public class CordsCommand implements CommandExecutor {
 		Main.getPlugin().getConfig().set("cords.hub.z", loc.getZ());
 		Main.getPlugin().getConfig().set("cords.hub.yaw", loc.getYaw());
 		Main.getPlugin().getConfig().set("cords.hub.pitch", loc.getPitch());
-
 		Main.getPlugin().saveConfig();
 
 		p.sendMessage(Main.pre + ChatColor.GREEN + "Setting Hub!");
@@ -69,7 +67,6 @@ public class CordsCommand implements CommandExecutor {
 		Main.getPlugin().getConfig().set("cords.ffa.z", loc.getZ());
 		Main.getPlugin().getConfig().set("cords.ffa.yaw", loc.getYaw());
 		Main.getPlugin().getConfig().set("cords.ffa.pitch", loc.getPitch());
-
 		Main.getPlugin().saveConfig();
 
 		p.sendMessage(Main.pre + ChatColor.GREEN + "Setting FFA cords!");
@@ -86,7 +83,6 @@ public class CordsCommand implements CommandExecutor {
 		Main.getPlugin().getConfig().set("cords.classic.z", loc.getZ());
 		Main.getPlugin().getConfig().set("cords.classic.yaw", loc.getYaw());
 		Main.getPlugin().getConfig().set("cords.classic.pitch", loc.getPitch());
-
 		Main.getPlugin().saveConfig();
 
 		p.sendMessage(Main.pre + ChatColor.GREEN + "Setting Classic cords!");
@@ -103,7 +99,6 @@ public class CordsCommand implements CommandExecutor {
 		Main.getPlugin().getConfig().set("cords.kitcreation.z", loc.getZ());
 		Main.getPlugin().getConfig().set("cords.kitcreation.yaw", loc.getYaw());
 		Main.getPlugin().getConfig().set("cords.kitcreation.pitch", loc.getPitch());
-
 		Main.getPlugin().saveConfig();
 
 		p.sendMessage(Main.pre + ChatColor.GREEN + "Setting Kitcreation cords!");
@@ -120,7 +115,6 @@ public class CordsCommand implements CommandExecutor {
 		Main.getPlugin().getConfig().set("cords.bot.z", loc.getZ());
 		Main.getPlugin().getConfig().set("cords.bot.yaw", loc.getYaw());
 		Main.getPlugin().getConfig().set("cords.bot.pitch", loc.getPitch());
-
 		Main.getPlugin().saveConfig();
 
 		p.sendMessage(Main.pre + ChatColor.GREEN + "Setting Bot cords!");
@@ -137,7 +131,6 @@ public class CordsCommand implements CommandExecutor {
 		Main.getPlugin().getConfig().set("cords.fps.z", loc.getZ());
 		Main.getPlugin().getConfig().set("cords.fps.yaw", loc.getYaw());
 		Main.getPlugin().getConfig().set("cords.fps.pitch", loc.getPitch());
-
 		Main.getPlugin().saveConfig();
 
 		p.sendMessage(Main.pre + ChatColor.GREEN + "Setting Fps cords!");
@@ -154,7 +147,22 @@ public class CordsCommand implements CommandExecutor {
 		Main.getPlugin().getConfig().set("cords.games.z", loc.getZ());
 		Main.getPlugin().getConfig().set("cords.games.yaw", loc.getYaw());
 		Main.getPlugin().getConfig().set("cords.games.pitch", loc.getPitch());
+		Main.getPlugin().saveConfig();
 
+		p.sendMessage(Main.pre + ChatColor.GREEN + "Setting games cords!");
+
+	    }
+
+	    if (args[0].equalsIgnoreCase("oldschool")) {
+
+		Main.getPlugin().getConfig().getStringList("oldschool");
+
+		Main.getPlugin().getConfig().set("cords.oldschool.world", loc.getWorld().getName());
+		Main.getPlugin().getConfig().set("cords.oldschool.x", loc.getX());
+		Main.getPlugin().getConfig().set("cords.oldschool.y", loc.getY());
+		Main.getPlugin().getConfig().set("cords.oldschool.z", loc.getZ());
+		Main.getPlugin().getConfig().set("cords.oldschool.yaw", loc.getYaw());
+		Main.getPlugin().getConfig().set("cords.oldschool.pitch", loc.getPitch());
 		Main.getPlugin().saveConfig();
 
 		p.sendMessage(Main.pre + ChatColor.GREEN + "Setting games cords!");

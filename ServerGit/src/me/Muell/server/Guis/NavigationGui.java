@@ -4,9 +4,7 @@ import java.util.Arrays;
 
 import org.bukkit.ChatColor;
 import org.bukkit.DyeColor;
-import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.World;
 import org.bukkit.entity.Player;
 
 import me.Muell.server.Main;
@@ -17,6 +15,7 @@ import me.Muell.server.types.Gamemode;
 import me.Muell.server.types.Inventories;
 import me.Muell.server.types.Items;
 import me.Muell.server.types.PlayerData;
+import me.Muell.server.types.Warps;
 
 public class NavigationGui extends AbstractGui {
 
@@ -39,15 +38,7 @@ public class NavigationGui extends AbstractGui {
 
 			p.closeInventory();
 
-			World world = Main.getPlugin().getServer().getWorld(Main.getPlugin().getConfig().getString("cords.1vs1.world"));
-			double x = Main.getPlugin().getConfig().getDouble("cords.1vs1.x");
-			double y = Main.getPlugin().getConfig().getDouble("cords.1vs1.y");
-			double z = Main.getPlugin().getConfig().getDouble("cords.1vs1.z");
-			float yaw = (float) Main.getPlugin().getConfig().getDouble("cords.1vs1.yaw");
-			float pitch = (float) Main.getPlugin().getConfig().getDouble("cords.1vs1.pitch");
-
-			Location onevsone = (new Location(world, x, y, z, yaw, pitch));
-			p.teleport(onevsone);
+			p.teleport(Warps.ONEVSONE.getLocation());
 
 			Inventories inv = new Inventories();
 			inv.onevsoneInventory(p);
@@ -66,16 +57,8 @@ public class NavigationGui extends AbstractGui {
 
 		p.closeInventory();
 
-		World world = Main.getPlugin().getServer().getWorld(Main.getPlugin().getConfig().getString("cords.classic.world"));
-		double x = Main.getPlugin().getConfig().getDouble("cords.classic.x");
-		double y = Main.getPlugin().getConfig().getDouble("cords.classic.y");
-		double z = Main.getPlugin().getConfig().getDouble("cords.classic.z");
-		float yaw = (float) Main.getPlugin().getConfig().getDouble("cords.classic.yaw");
-		float pitch = (float) Main.getPlugin().getConfig().getDouble("cords.classic.pitch");
+		p.teleport(Warps.CLASSIC.getLocation());
 
-		Location classic = (new Location(world, x, y, z, yaw, pitch));
-
-		p.teleport(classic);
 		p.getInventory().clear();
 
 		new PlayStyleInv().playStyleInv(p);
@@ -99,15 +82,7 @@ public class NavigationGui extends AbstractGui {
 
 			p.closeInventory();
 
-			World world = Main.getPlugin().getServer().getWorld(Main.getPlugin().getConfig().getString("cords.ffa.world"));
-			double x = Main.getPlugin().getConfig().getDouble("cords.ffa.x");
-			double y = Main.getPlugin().getConfig().getDouble("cords.ffa.y");
-			double z = Main.getPlugin().getConfig().getDouble("cords.ffa.z");
-			float yaw = (float) Main.getPlugin().getConfig().getDouble("cords.ffa.yaw");
-			float pitch = (float) Main.getPlugin().getConfig().getDouble("cords.ffa.pitch");
-
-			Location ffa = (new Location(world, x, y, z, yaw, pitch));
-			p.teleport(ffa);
+			p.teleport(Warps.FFA.getLocation());
 
 			p.getInventory().clear();
 
@@ -128,23 +103,36 @@ public class NavigationGui extends AbstractGui {
 
 		p.closeInventory();
 
-		World world = Main.getPlugin().getServer().getWorld(Main.getPlugin().getConfig().getString("cords.fps.world"));
-		double x = Main.getPlugin().getConfig().getDouble("cords.fps.x");
-		double y = Main.getPlugin().getConfig().getDouble("cords.fps.y");
-		double z = Main.getPlugin().getConfig().getDouble("cords.fps.z");
-		float yaw = (float) Main.getPlugin().getConfig().getDouble("cords.fps.yaw");
-		float pitch = (float) Main.getPlugin().getConfig().getDouble("cords.fps.pitch");
+		p.teleport(Warps.FPS.getLocation());
 
 		pd.setGamemode(Gamemode.FPS);
-
-		Location fps = (new Location(world, x, y, z, yaw, pitch));
-		p.teleport(fps);
 
 		PlayStyleInv ps = new PlayStyleInv();
 		ps.playStyleInv(p);
 		p.getInventory().setItem(8, Items.createitem(Material.STICK, ChatColor.RED + "Challenger", null));
 	    }
 	});
+
+	setItemLeftAction(15, Items.createitem(Material.GOLDEN_CARROT, ChatColor.WHITE + "Oldschool",
+		Arrays.asList(ChatColor.WHITE + "Fight all other players a little bit more oldschool, ", ChatColor.WHITE + "at this warp")), new AbstractAction() {
+
+		    public void click(Player player) {
+
+			PlayerData pd = Main.getPlayerData(p);
+
+			pd.setGamemode(Gamemode.PVP);
+			pd.setIngame(true);
+
+			DisguiseManager disguise = new DisguiseManager();
+			disguise.showCustom(p);
+
+			p.closeInventory();
+			p.teleport(Warps.OLDSCHOOL.getLocation());
+			p.getInventory().clear();
+
+			new Inventories().hardcoreInventory(p);
+		    }
+		});
 
 	p.openInventory(getInv());
 

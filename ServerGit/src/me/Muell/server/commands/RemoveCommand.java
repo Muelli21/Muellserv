@@ -20,7 +20,7 @@ public class RemoveCommand implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 
-	if (!sender.hasPermission("remove")) {
+	if (!sender.hasPermission("Admin")) {
 
 	    sender.sendMessage(Main.noperms);
 	    return false;

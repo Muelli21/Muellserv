@@ -14,21 +14,25 @@ import org.bukkit.craftbukkit.v1_7_R4.CraftWorld;
 import org.bukkit.craftbukkit.v1_7_R4.entity.CraftEntity;
 import org.bukkit.craftbukkit.v1_7_R4.entity.CraftPlayer;
 import org.bukkit.craftbukkit.v1_7_R4.inventory.CraftItemStack;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Firework;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.FireworkMeta;
 import org.bukkit.plugin.Plugin;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
 
 import me.Muell.server.Main;
 import me.Muell.server.listener.SpawnListener;
 import me.Muell.server.types.Gamemode;
+import me.Muell.server.types.Items;
 import me.Muell.server.types.PlayerData;
 import me.libraryaddict.disguise.DisguiseAPI;
 import me.libraryaddict.disguise.disguisetypes.PlayerDisguise;
-import net.minecraft.server.v1_7_R4.Enchantment;
 import net.minecraft.server.v1_7_R4.EntityHuman;
 import net.minecraft.server.v1_7_R4.EntityZombie;
 import net.minecraft.server.v1_7_R4.GenericAttributes;
@@ -51,7 +55,7 @@ public class CustomZombie extends EntityZombie {
     Server server = Bukkit.getServer();
 
     @SuppressWarnings("rawtypes")
-    public CustomZombie(final World world, final Player p, double speedMultiplier, double lives) {
+    public CustomZombie(final World world, final Player p, double speedMultiplier, double lives, boolean hardcore) {
 	super(world);
 
 	final Location loc = p.getLocation();
@@ -59,10 +63,38 @@ public class CustomZombie extends EntityZombie {
 
 	final net.minecraft.server.v1_7_R4.Entity entity = ((CraftEntity) p).getHandle();
 
-	ItemStack i = new ItemStack(Material.STONE_SWORD);
-	net.minecraft.server.v1_7_R4.ItemStack nmssword = CraftItemStack.asNMSCopy(i);
-	nmssword.addEnchantment(Enchantment.KNOCKBACK, 0);
-	setEquipment(0, nmssword);
+	String name = "";
+
+	if (hardcore) {
+
+	    LivingEntity livingzombie = (LivingEntity) getBukkitEntity();
+
+	    net.minecraft.server.v1_7_R4.ItemStack nmssword = CraftItemStack
+		    .asNMSCopy(Items.createenchanteditem(Material.DIAMOND_SWORD, "Sword", null, Enchantment.KNOCKBACK, 0, Enchantment.DAMAGE_ALL, 1));
+	    setEquipment(0, nmssword);
+
+	    ItemStack helmet = Items.createitem(Material.DIAMOND_HELMET, "Helmet", null);
+	    ItemStack chest = Items.createitem(Material.DIAMOND_CHESTPLATE, "Chest", null);
+	    ItemStack leggings = Items.createitem(Material.DIAMOND_LEGGINGS, "Leggings", null);
+	    ItemStack boots = Items.createitem(Material.DIAMOND_BOOTS, "Boots", null);
+
+	    livingzombie.getEquipment().setHelmet(helmet);
+	    livingzombie.getEquipment().setChestplate(chest);
+	    livingzombie.getEquipment().setLeggings(leggings);
+	    livingzombie.getEquipment().setBoots(boots);
+
+	    livingzombie.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, Integer.MAX_VALUE, 4));
+	    livingzombie.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, Integer.MAX_VALUE, 0));
+
+	    name = "Schmockyyy";
+
+	} else {
+
+	    net.minecraft.server.v1_7_R4.ItemStack nmssword = CraftItemStack.asNMSCopy(Items.createenchanteditem(Material.STONE_SWORD, "Sword", null, Enchantment.KNOCKBACK, 0));
+	    setEquipment(0, nmssword);
+
+	    name = p.getName();
+	}
 
 	setLocation(loc.getX(), loc.getY(), loc.getZ(), loc.getYaw(), loc.getPitch());
 
@@ -99,7 +131,7 @@ public class CustomZombie extends EntityZombie {
 	this.targetSelector.a(1, new PathfinderGoalHurtByTarget(this, true));
 	this.targetSelector.a(2, new PathfinderGoalNearestAttackableTarget(this, EntityHuman.class, 0, true));
 
-	PlayerDisguise dis = new PlayerDisguise(p.getName());
+	PlayerDisguise dis = new PlayerDisguise(name);
 	dis.setReplaceSounds(true);
 	DisguiseAPI.disguiseEntity(getBukkitEntity(), dis);
 

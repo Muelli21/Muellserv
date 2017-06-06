@@ -20,6 +20,14 @@ public class ArenaManager implements Listener {
 	final PlayerData pd = Main.getPlayerData(p);
 	final PlayerData td = Main.getPlayerData(target);
 
+	if (Arena.list.isEmpty()) {
+	    new SpawnListener().spawnMethod(p);
+	    new SpawnListener().spawnMethod(target);
+	    p.sendMessage("No Arena found");
+	    target.sendMessage("No Arena found");
+	    return;
+	}
+
 	for (final Arena arena : Arena.list) {
 
 	    if (arena.isFree()) {
@@ -171,6 +179,12 @@ public class ArenaManager implements Listener {
     public void arenaManagerBot(final Player p, final Entity entity) {
 
 	final PlayerData pd = Main.getPlayerData(p);
+
+	if (Arena.list.isEmpty()) {
+	    new SpawnListener().spawnMethod(p);
+	    p.sendMessage("No Arena found");
+	    return;
+	}
 
 	for (final Arena arena : Arena.list) {
 

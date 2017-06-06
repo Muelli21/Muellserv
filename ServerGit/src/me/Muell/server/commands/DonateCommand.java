@@ -18,7 +18,7 @@ public class DonateCommand implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 
-	if (!sender.hasPermission("donate")) {
+	if (!sender.hasPermission("Admin")) {
 
 	    sender.sendMessage(Main.noperms);
 	    return false;
@@ -49,7 +49,6 @@ public class DonateCommand implements CommandExecutor {
 	    }
 
 	    loader.addAbility(ability, name, sender, true);
-
 	}
 
 	if (args[0].equals("points")) {
@@ -73,7 +72,6 @@ public class DonateCommand implements CommandExecutor {
 
 	    OfflinePlayer target = Bukkit.getOfflinePlayer(name);
 	    loader.changePoints(points, target, sender, true);
-
 	}
 
 	if (args[0].equals("chests")) {

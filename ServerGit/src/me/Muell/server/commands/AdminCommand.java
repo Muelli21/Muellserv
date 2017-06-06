@@ -21,7 +21,7 @@ public class AdminCommand implements CommandExecutor {
 
 	if (!(sender instanceof Player)) { return false; }
 
-	if (!p.hasPermission("administration")) {
+	if (!p.hasPermission("Staff")) {
 
 	    p.sendMessage(Main.pre + Main.noperms);
 	    return true;

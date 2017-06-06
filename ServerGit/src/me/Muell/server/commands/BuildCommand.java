@@ -15,7 +15,7 @@ public class BuildCommand implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 
-	if (sender.hasPermission("administration")) {
+	if (sender.hasPermission("Head-Builder")) {
 
 	    if (args.length == 1) {
 
@@ -29,7 +29,7 @@ public class BuildCommand implements CommandExecutor {
 	    }
 	}
 
-	if (sender.hasPermission("build")) {
+	if (sender.hasPermission("Builder")) {
 
 	    if (args.length == 0) {
 

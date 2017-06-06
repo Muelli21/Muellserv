@@ -22,7 +22,7 @@ public class HologramCommand implements CommandExecutor {
 	if (!(sender instanceof Player))
 	    return false;
 
-	if (!(sender.hasPermission("Hologram"))) {
+	if (!(sender.hasPermission("Admin") || !(sender.hasPermission("Head-Builder")))) {
 
 	    sender.sendMessage(ChatColor.RED + Main.noperms);
 	    return false;

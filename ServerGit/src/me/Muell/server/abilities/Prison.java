@@ -76,13 +76,13 @@ public class Prison {
 		time++;
 		joinable = true;
 
-		if (target.isDead()) {
+		if (target.isDead() || target == null) {
 		    destroy();
 		    cancel();
 		    return;
 		}
 
-		if (time % 2 == 0)
+		if (time % 2 == 0 && targetEffect != null)
 		    targetEffect.effect(target);
 
 		if (time > getTime()) {

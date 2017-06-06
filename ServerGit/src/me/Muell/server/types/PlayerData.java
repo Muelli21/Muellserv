@@ -7,7 +7,9 @@ import java.util.List;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
+import org.bukkit.permissions.PermissionAttachment;
 
+import me.Muell.server.Main;
 import me.Muell.server.abilities.Ability;
 import me.Muell.server.arena.Arena;
 import me.Muell.server.kitcreation.KitConfig;
@@ -18,7 +20,7 @@ public class PlayerData {
     public static HashMap<Player, PlayerData> list = new HashMap<>();
 
     private Player player, lastDamager = this.getPlayer(), tradeinvite;
-    private boolean adminmode = false, frozen = false, ingame = false, disguised = false, challenge = false, build = false, allowedtoseeplayers = true;
+    private boolean adminmode = false, frozen = false, ingame = false, disguised = false, challenge = false, build = false, allowedtoseeplayers = true, nicked = false;
 
     private Gamemode gamemode = Gamemode.SPAWN;
 
@@ -32,6 +34,7 @@ public class PlayerData {
     private int chests;
     private int points;
 
+    private Rank rank = Rank.PLAYER;
     private String nick, lastmessage;
     private List<String> duels = new ArrayList<String>();
     private HashMap<Ability, Long> abilitycooldown = new HashMap<>();
@@ -314,6 +317,33 @@ public class PlayerData {
 
     public void setKitconfigs(HashMap<Integer, KitConfig> kitconfigs) {
 	this.kitconfigs = kitconfigs;
+    }
+
+    public Rank getRank() {
+	return rank;
+    }
+
+    public void setRank(Rank rank) {
+
+	Rank oldrank = this.rank;
+
+	PermissionAttachment attachment = player.addAttachment(Main.getPlugin());
+	for (String perm : oldrank.getPermissions())
+	    attachment.unsetPermission(perm);
+
+	this.rank = rank;
+
+	for (String perm : rank.getPermissions())
+	    player.addAttachment(Main.getPlugin(), perm, true);
+
+    }
+
+    public boolean isNicked() {
+	return nicked;
+    }
+
+    public void setNicked(boolean nicked) {
+	this.nicked = nicked;
     }
 
 }

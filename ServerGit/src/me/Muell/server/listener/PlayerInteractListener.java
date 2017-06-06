@@ -115,13 +115,35 @@ public class PlayerInteractListener implements Listener {
 		    pd.setIngame(true);
 
 		    final WorldServer world1 = ((CraftWorld) p.getWorld()).getHandle();
-		    final CustomZombie zombie = new CustomZombie(world1, p, pd.getBotspeed(), pd.getBothealth());
+		    final CustomZombie zombie = new CustomZombie(world1, p, pd.getBotspeed(), pd.getBothealth(), false);
 
 		    ArenaManager ab = new ArenaManager();
 		    ab.arenaManagerBot(p, zombie.getBukkitEntity());
 
 		    AbilityChooseListener abichoose = new AbilityChooseListener();
 		    abichoose.abilityChoosMode(p);
+
+		    p.sendMessage(Main.pre + "Your bot has been created!");
+		    p.getWorld().playSound(p.getLocation(), Sound.CLICK, 100, 100);
+
+		    e.setCancelled(true);
+		}
+
+		if (item.getItemMeta().getDisplayName().equals(ChatColor.GOLD + "Oldschool ShadowFight")) {
+
+		    p.closeInventory();
+		    p.getInventory().clear();
+
+		    pd.setIngame(true);
+
+		    final WorldServer world1 = ((CraftWorld) p.getWorld()).getHandle();
+		    final CustomZombie zombie = new CustomZombie(world1, p, pd.getBotspeed(), pd.getBothealth(), true);
+
+		    ArenaManager ab = new ArenaManager();
+		    ab.arenaManagerBot(p, zombie.getBukkitEntity());
+
+		    new Inventories().hardcoreInventory(p);
+		    pd.setGamemode(Gamemode.ONEVSONE);
 
 		    p.sendMessage(Main.pre + "Your bot has been created!");
 		    p.getWorld().playSound(p.getLocation(), Sound.CLICK, 100, 100);

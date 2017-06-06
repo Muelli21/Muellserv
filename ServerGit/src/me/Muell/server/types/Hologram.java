@@ -205,7 +205,7 @@ public class Hologram {
 	    double y = skull.as.a(move.getY());
 	    double z = skull.as.a(move.getZ());
 
-	    PacketPlayOutRelEntityMove skullmovepacket = new PacketPlayOutRelEntityMove(skull.getId(), (byte) x, (byte) y, (byte) z, false);
+	    PacketPlayOutRelEntityMove skullmovepacket = new PacketPlayOutRelEntityMove(skull.getId(), (byte) x, (byte) y, (byte) z, true);
 
 	    for (Player ps : playersshowed) {
 

@@ -20,7 +20,6 @@ public class DisguiseManager {
 
     @SuppressWarnings("deprecation")
     public void showCustom(Player p) {
-
 	for (Player ps : Bukkit.getOnlinePlayers()) {
 
 	    PlayerData pds = Main.getPlayerData(ps);

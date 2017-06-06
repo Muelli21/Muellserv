@@ -103,6 +103,7 @@ public class Inventories {
 
 	p.getInventory().setItem(0, Items.createitem(Material.STICK, ChatColor.RED + "Challenger", null));
 	p.getInventory().setItem(4, Items.createitem(Material.EYE_OF_ENDER, ChatColor.RED + "Queue", null));
+	p.getInventory().setItem(7, Items.createitem(Material.SKULL_ITEM, ChatColor.GOLD + "Oldschool ShadowFight", null));
 	p.getInventory().setItem(8, Items.createitem(Material.SKULL_ITEM, ChatColor.GOLD + "ShadowFight", null));
 	p.updateInventory();
 
@@ -141,6 +142,32 @@ public class Inventories {
 	p.getInventory().setItem(15, new ItemStack(Material.BOWL, 32));
 
 	for (int i = 1; i <= 32; i++)
+	    p.getInventory().addItem(new ItemStack(Material.MUSHROOM_SOUP));
+
+	p.updateInventory();
+
+    }
+
+    public void hardcoreInventory(Player p) {
+
+	clearInventoy(p);
+
+	p.getInventory().setItem(0, Items.createenchanteditem(Material.DIAMOND_SWORD, "Sword", null, Enchantment.DAMAGE_ALL, 2));
+
+	p.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, Integer.MAX_VALUE, 1));
+	p.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, Integer.MAX_VALUE, 1));
+
+	p.getInventory().setItem(1, new ItemStack(Material.GOLDEN_CARROT, 64));
+	p.getInventory().setItem(13, new ItemStack(Material.RED_MUSHROOM, 32));
+	p.getInventory().setItem(14, new ItemStack(Material.BROWN_MUSHROOM, 32));
+	p.getInventory().setItem(15, new ItemStack(Material.BOWL, 32));
+
+	p.getInventory().setHelmet(Items.createenchanteditem(Material.DIAMOND_HELMET, "Helmet", null, Enchantment.DURABILITY, 2));
+	p.getInventory().setChestplate(Items.createenchanteditem(Material.DIAMOND_CHESTPLATE, "Chestplate", null, Enchantment.DURABILITY, 2));
+	p.getInventory().setLeggings(Items.createenchanteditem(Material.DIAMOND_LEGGINGS, "Leggings", null, Enchantment.DURABILITY, 2));
+	p.getInventory().setBoots(Items.createenchanteditem(Material.DIAMOND_BOOTS, "Boots", null, Enchantment.DURABILITY, 2));
+
+	for (int i = 0; i <= 32; i++)
 	    p.getInventory().addItem(new ItemStack(Material.MUSHROOM_SOUP));
 
 	p.updateInventory();

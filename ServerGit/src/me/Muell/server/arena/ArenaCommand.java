@@ -16,7 +16,7 @@ public class ArenaCommand implements CommandExecutor {
 	Player p = (Player) sender;
 	Location loc = p.getLocation();
 
-	if (!p.hasPermission("administration")) {
+	if (!p.hasPermission("Admin")) {
 
 	    p.sendMessage(Main.pre + Main.noperms);
 	    return false;

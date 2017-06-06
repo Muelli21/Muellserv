@@ -47,6 +47,7 @@ public class SpawnListener implements Listener {
 
 	Loader loader = new Loader();
 	loader.LoadProfile(p);
+	loader.setPrefix(p);
     }
 
     public void spawnMethod(Player p) {

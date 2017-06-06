@@ -21,7 +21,7 @@ public class ProfileCommand implements CommandExecutor {
 	if (!(sender instanceof Player))
 	    return false;
 
-	if (!sender.hasPermission("profile")) {
+	if (!sender.hasPermission("Admin")) {
 
 	    sender.sendMessage(Main.noperms);
 	    return false;

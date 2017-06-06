@@ -118,13 +118,14 @@ public class Loader {
 	Main.getPlugin().getConfig().set("Players." + p.getUniqueId().toString() + ".lastname", p.getName());
 	Main.getPlugin().saveConfig();
 
+	List<String> abilities = Main.getPlugin().getConfig().getStringList("Players." + p.getUniqueId().toString() + ".abilities");
+	String rank = Main.getPlugin().getConfig().getString("Players." + p.getUniqueId().toString() + ".rank");
 	int chests = Main.getPlugin().getConfig().getInt("Players." + p.getUniqueId().toString() + ".chests");
 	int points = Main.getPlugin().getConfig().getInt("Players." + p.getUniqueId().toString() + ".points");
 
 	pd.setChests(chests);
 	pd.setPoints(points);
-
-	List<String> abilities = Main.getPlugin().getConfig().getStringList("Players." + p.getUniqueId().toString() + ".abilities");
+	pd.setRank(getRank(rank));
 
 	for (String name : abilities)
 	    pd.ownedAbilities.add(getAbility(name));
@@ -179,6 +180,7 @@ public class Loader {
 	    Main.getPlugin().getConfig().set("Players." + p.getUniqueId().toString() + ".kitconfig." + config.getSlot() + ".style", style);
 	    Main.getPlugin().getConfig().set("Players." + p.getUniqueId().toString() + ".kitconfig." + config.getSlot() + ".abilities", abis);
 	    Main.getPlugin().getConfig().set("Players." + p.getUniqueId().toString() + ".kitconfig." + config.getSlot() + ".points", points);
+	    Main.getPlugin().saveConfig();
 	}
 
 	Main.getPlugin().getConfig().get("Players." + p.getUniqueId().toString());
@@ -186,6 +188,7 @@ public class Loader {
 	Main.getPlugin().getConfig().set("Players." + p.getUniqueId().toString() + ".chests", pd.getChests());
 	Main.getPlugin().getConfig().set("Players." + p.getUniqueId().toString() + ".points", pd.getPoints());
 	Main.getPlugin().getConfig().set("Players." + p.getUniqueId().toString() + ".abilities", abilities);
+	Main.getPlugin().getConfig().set("Players." + p.getUniqueId().toString() + ".rank", pd.getRank().getName());
 	Main.getPlugin().saveConfig();
 
 	p.sendMessage(ChatColor.GREEN + "Successfully saved your profile!");
@@ -636,5 +639,43 @@ public class Loader {
 
 	}
 
+    }
+
+    public void setPrefix(Player p) {
+
+	PlayerData pd = Main.getPlayerData(p);
+
+	if (!pd.isNicked()) {
+	    String name = pd.getRank().getPrefix() + p.getName() + ChatColor.RESET;
+	    p.setDisplayName(name);
+	    p.setPlayerListName(pd.getRank().getPrefix() + p.getName());
+
+	}
+    }
+
+    public void setRank(OfflinePlayer target, Rank rank) {
+
+	if (target.isOnline()) {
+	    Player onlinetarget = (Player) target;
+	    PlayerData td = Main.getPlayerData(onlinetarget);
+	    td.setRank(rank);
+	    setPrefix(onlinetarget);
+
+	} else {
+
+	    Main.getPlugin().getConfig().set("Players." + target.getUniqueId().toString() + ".rank", rank.getName());
+	    Main.getPlugin().saveConfig();
+	}
+    }
+
+    public Rank getRank(String name) {
+
+	for (Rank rank : Rank.values()) {
+	    if (rank.getName().equals(name))
+		return rank;
+
+	}
+
+	return Rank.PLAYER;
     }
 }

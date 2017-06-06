@@ -17,7 +17,7 @@ public class OverviewCommand implements CommandExecutor {
 
 	Player p = (Player) sender;
 
-	if (!p.hasPermission("admin"))
+	if (!p.hasPermission("Admin"))
 	    return false;
 
 	if (args.length == 0) {

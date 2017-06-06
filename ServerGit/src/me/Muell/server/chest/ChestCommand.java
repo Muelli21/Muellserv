@@ -42,19 +42,14 @@ public class ChestCommand implements CommandExecutor {
 		    pd.setChests(pd.getChests() + 1);
 
 		    p.sendMessage(ChatColor.GREEN + "Successfully bought a chest!");
-
 		    return false;
-
 		}
 
 		p.sendMessage(ChatColor.RED + "You do not have enough money to buy a chest!");
 		return false;
-
 	    }
-
 	}
 
 	return false;
     }
-
 }

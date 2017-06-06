@@ -20,7 +20,7 @@ public class NickCommand implements CommandExecutor {
 
 	Player p = (Player) sender;
 
-	if (!p.hasPermission("nick")) {
+	if (!p.hasPermission("Staff")) {
 
 	    p.sendMessage(Main.noperms);
 	    return false;

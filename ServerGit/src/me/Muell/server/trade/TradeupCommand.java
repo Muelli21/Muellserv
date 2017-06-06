@@ -7,6 +7,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import me.Muell.server.Main;
+import me.Muell.server.Guis.TradeupGui;
 import me.Muell.server.types.Gamemode;
 import me.Muell.server.types.PlayerData;
 
@@ -27,7 +28,7 @@ public class TradeupCommand implements CommandExecutor {
 	    return false;
 	}
 
-	new Tradeup().TradeUp(p);
+	new TradeupGui(p);
 	return false;
     }
 }

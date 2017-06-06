@@ -19,10 +19,10 @@ public class BotCommand implements CommandExecutor {
 	Player p = (Player) sender;
 	PlayerData pd = Main.getPlayerData(p);
 
-	if (!(p.hasPermission("administration"))) { return true; }
+	if (!(p.hasPermission("Admin"))) { return true; }
 
 	World world = ((CraftWorld) Bukkit.getWorld("world")).getHandle();
-	new CustomZombie(world, p, 1, 400);
+	new CustomZombie(world, p, 1, 400, false);
 
 	pd.setIngame(true);
 	pd.setGamemode(Gamemode.ONEVSONE);

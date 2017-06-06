@@ -18,7 +18,6 @@ public class ChestsCommand implements CommandExecutor {
 
 	    sender.sendMessage(ChatColor.RED + "You can not use this command!");
 	    return false;
-
 	}
 
 	Player p = (Player) sender;
